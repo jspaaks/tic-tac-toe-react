@@ -26,9 +26,7 @@ export class Board extends React.Component {
         super(props)
         this.state = {
             squares: Array(9).fill(null),
-            nextPlayer: 'X',
-            winner: null,
-            msg: 'Next player: X'
+            nextPlayer: 'X'
         }
     }
 
@@ -37,8 +35,8 @@ export class Board extends React.Component {
         const clickHandler = (i) => {
             return () => {
                 console.log(`clicked square ${i}`);
-
-                if (this.state.winner === 'X' || this.state.winner === 'O') {
+                const winner = calculateWinner(this.state.squares)
+                if (winner === 'X' || winner === 'O') {
                     console.log('We already have a winner')
                     return
                 }
@@ -49,21 +47,9 @@ export class Board extends React.Component {
                 const squares = [...this.state.squares];
                 squares[i] = this.state.nextPlayer;
                 const nextPlayer = this.state.nextPlayer === 'X' ? 'O' : 'X';
-                const winner = calculateWinner(squares);
-                const boardIsFull = squares.every(square => square === 'X' || square === 'O');
-                let msg;
-                if (winner === 'X' || winner === 'O') {
-                    msg = `${winner} wins!`
-                } else if (boardIsFull) {
-                    msg = 'No more moves';
-                } else {
-                    msg = `Next player: ${nextPlayer}`
-                }
                 this.setState({
                     squares,
-                    nextPlayer,
-                    winner,
-                    msg
+                    nextPlayer
                 })
             }
         }
@@ -75,10 +61,20 @@ export class Board extends React.Component {
     }
     
     render() {
+        const winner = calculateWinner(this.state.squares)
+        const boardIsFull = this.state.squares.every(square => square === 'X' || square === 'O');
+        let msg;
+        if (winner === 'X' || winner === 'O') {
+            msg = `${winner} wins!`
+        } else if (boardIsFull) {
+            msg = 'No more moves';
+        } else {
+            msg = `Next player: ${this.state.nextPlayer}`
+        }
         return (
             <div>
                 <div className="status">
-                    { this.state.msg }
+                    { msg }
                 </div>
                 <div className="board-row">
                     { this.renderSquare(0) }
