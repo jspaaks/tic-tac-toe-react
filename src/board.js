@@ -1,13 +1,34 @@
 import React from 'react';
 import { Square } from './square'
 
-    
+
+const calculateWinner = (squares) => {
+    const getLineValues = (line) => {
+        const [a, b, c] = squares.filter((_, index) => line.includes(index));
+        return a !== null && a === b && b === c ? a : null
+    }
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+    return lines.map(getLineValues).filter(elem => elem !== null)[0]
+}
+
 export class Board extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            nextPlayer: 'X',
+            winner: null,
+            msg: 'Next player: X'
         }
     }
 
@@ -16,9 +37,34 @@ export class Board extends React.Component {
         const clickHandler = (i) => {
             return () => {
                 console.log(`clicked square ${i}`);
-                const squares = [...this.state.squares]
-                squares[i] = 'X'
-                this.setState({ squares })
+
+                if (this.state.winner === 'X' || this.state.winner === 'O') {
+                    console.log('We already have a winner')
+                    return
+                }
+                if (this.state.squares[i] === 'X' || this.state.squares[i] === 'O') {
+                    console.log('Can\'t overwrite a previous move')
+                    return
+                }
+                const squares = [...this.state.squares];
+                squares[i] = this.state.nextPlayer;
+                const nextPlayer = this.state.nextPlayer === 'X' ? 'O' : 'X';
+                const winner = calculateWinner(squares);
+                const boardIsFull = squares.every(square => square === 'X' || square === 'O');
+                let msg;
+                if (winner === 'X' || winner === 'O') {
+                    msg = `${winner} wins!`
+                } else if (boardIsFull) {
+                    msg = 'No more moves';
+                } else {
+                    msg = `Next player: ${nextPlayer}`
+                }
+                this.setState({
+                    squares,
+                    nextPlayer,
+                    winner,
+                    msg
+                })
             }
         }
 
@@ -29,12 +75,10 @@ export class Board extends React.Component {
     }
     
     render() {
-        const status = 'Next player: X';
-        
         return (
             <div>
                 <div className="status">
-                    { status }
+                    { this.state.msg }
                 </div>
                 <div className="board-row">
                     { this.renderSquare(0) }
