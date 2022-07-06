@@ -47,7 +47,7 @@ export class Game extends React.Component<PropsType, StateType > {
         squares[i] = latest.player;
         const player = latest.player === 'X' ? 'O' : 'X';
         this.setState({
-            history: [...this.state.history, { squares, player }]
+            history: this.state.history.concat({ squares, player })
         })
         return
     }

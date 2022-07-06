@@ -15,7 +15,6 @@ type PropsType = {
     player: PlayerType
     clickHandler: (i: number) => void
 }
-type StateType = {}
 
 export const Board = (props: PropsType) => {
     const winner = calculateWinner(props.squares)
