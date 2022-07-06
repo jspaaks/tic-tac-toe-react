@@ -1,4 +1,11 @@
-export const Square = (props) => {
+import React from "react";
+
+type PropsType = {
+    clickHandler: () => void;
+    value: string;
+}
+
+export const Square = (props: PropsType) => {
     return (
         <button
             className="square"

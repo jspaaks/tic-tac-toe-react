@@ -1,10 +1,16 @@
 import React from 'react';
-import { Square } from './square'
+import { Square } from 'square'
 
+type SquaresType = Array<null|string>
+type NextPlayerType = null|string
+type StateType = {
+    squares: SquaresType
+    nextPlayer: NextPlayerType
+}
 
-const calculateWinner = (squares) => {
-    const getLineValues = (line) => {
-        const [a, b, c] = squares.filter((_, index) => line.includes(index));
+const calculateWinner = (squares: SquaresType) => {
+    const getLineValues = (line: [number, number, number]) => {
+        const [a, b, c] = squares.filter((_, index: number) => line.includes(index));
         return a !== null && a === b && b === c ? a : null
     }
     const lines = [
@@ -20,9 +26,9 @@ const calculateWinner = (squares) => {
     return lines.map(getLineValues).filter(elem => elem !== null)[0]
 }
 
-export class Board extends React.Component {
+export class Board extends React.Component<{}, StateType>{
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props)
         this.state = {
             squares: Array(9).fill(null),
@@ -30,9 +36,9 @@ export class Board extends React.Component {
         }
     }
 
-    renderSquare(i) {
+    renderSquare(i: number) {
 
-        const clickHandler = (i) => {
+        const clickHandler = (i: number) => {
             return () => {
                 console.log(`clicked square ${i}`);
                 const winner = calculateWinner(this.state.squares)
@@ -51,6 +57,7 @@ export class Board extends React.Component {
                     squares,
                     nextPlayer
                 })
+                return
             }
         }
 

@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "esModuleInterop": true,
+        "jsx": "react",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true
+    }
+}
