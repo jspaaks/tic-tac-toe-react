@@ -1,7 +1,7 @@
 import React from "react";
 
 type PropsType = {
-    clickHandler: () => void;
+    clickHandler: any;
     value: string;
 }
 
