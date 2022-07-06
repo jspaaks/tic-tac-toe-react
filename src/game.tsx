@@ -30,21 +30,19 @@ export class Game extends React.Component<PropsType, StateType > {
         }
     }
 
-    clickHandler (i: number) {
-        console.log(`clicked square ${i}`);
-        console.info(this.state.history);
+    clickHandler (iSquare: number) {
         const latest = getLatest(this.state)
         const winner = calculateWinner(latest.squares)
         if (winner === 'X' || winner === 'O') {
             console.log('We already have a winner')
             return
         }
-        if (latest.squares[i] === 'X' || latest.squares[i] === 'O') {
+        if (latest.squares[iSquare] === 'X' || latest.squares[iSquare] === 'O') {
             console.log('Can\'t overwrite a previous move')
             return
         }
         const squares = [...latest.squares];
-        squares[i] = latest.player;
+        squares[iSquare] = latest.player;
         const player = latest.player === 'X' ? 'O' : 'X';
         this.setState({
             history: this.state.history.concat({ squares, player })
@@ -52,8 +50,22 @@ export class Game extends React.Component<PropsType, StateType > {
         return
     }
 
+    restoreStateFromHistory (iMove: number) {
+        this.setState({
+            history: this.state.history.slice(0, iMove + 1)
+        })
+    }
+
     render() {
         const latest = getLatest(this.state);
+        const moves = this.state.history.slice(0,-1).map((state, iMove) => {
+            const msg = iMove === 0 ? 'Reset' : `Restore board to state after ${iMove} moves`
+            return (
+                <li key={iMove}>
+                    <button onClick={() => this.restoreStateFromHistory(iMove)}>{msg}</button>
+                </li>
+            )
+        })
         return (
             <div className="game">
                 <div className="game-board">
@@ -64,8 +76,7 @@ export class Game extends React.Component<PropsType, StateType > {
                     />
                 </div>
                 <div className="game-info">
-                <div>{/* status */}</div>
-                <ol>{/* TODO */}</ol>
+                <ol style={{listStyle: 'none'}}> { moves } </ol>
                 </div>
             </div>
         );
