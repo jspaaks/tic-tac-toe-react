@@ -59,7 +59,7 @@ export class Game extends React.Component<PropsType, StateType > {
     render() {
         const latest = getLatest(this.state);
         const moves = this.state.history.slice(0,-1).map((state, iMove) => {
-            const msg = iMove === 0 ? 'Reset' : `Restore board to state after ${iMove} moves`
+            const msg = iMove === 0 ? 'Reset' : `Restore board to state after ${iMove} moves`;
             return (
                 <li key={iMove}>
                     <button onClick={() => this.restoreStateFromHistory(iMove)}>{msg}</button>
