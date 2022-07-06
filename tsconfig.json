@@ -5,6 +5,7 @@
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitReturns": true,
-        "noImplicitThis": true
+        "noImplicitThis": true,
+        "target": "ES6"
     }
 }
