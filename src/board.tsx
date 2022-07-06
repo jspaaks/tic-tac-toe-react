@@ -3,6 +3,12 @@ import { Square } from 'square'
 import { SquaresType, NextPlayerType } from 'types'
 import { calculateWinner } from 'calculate-winner'
 
+const renderSquare = (props: PropsType, i: number) => {
+    return <Square
+        value={ props.squares[i] }
+        clickHandler={ () => props.clickHandler(i) }
+    />;
+}
 
 type PropsType = {
     squares: SquaresType
@@ -11,48 +17,38 @@ type PropsType = {
 }
 type StateType = {}
 
-export class Board extends React.Component<PropsType, StateType>{
-
-    renderSquare(i: number) {
-
-        return <Square
-            value={ this.props.squares[i] }
-            clickHandler={ () => this.props.clickHandler(i) }
-        />;
+export const Board = (props: PropsType) => {
+    const winner = calculateWinner(props.squares)
+    const boardIsFull = props.squares.every(square => square === 'X' || square === 'O');
+    let msg;
+    if (winner === 'X' || winner === 'O') {
+        msg = `${ winner } wins!`
+    } else if (boardIsFull) {
+        msg = 'No more moves';
+    } else {
+        msg = `Next player: ${ props.nextPlayer }`
     }
-    
-    render() {
-        const winner = calculateWinner(this.props.squares)
-        const boardIsFull = this.props.squares.every(square => square === 'X' || square === 'O');
-        let msg;
-        if (winner === 'X' || winner === 'O') {
-            msg = `${ winner } wins!`
-        } else if (boardIsFull) {
-            msg = 'No more moves';
-        } else {
-            msg = `Next player: ${ this.props.nextPlayer }`
-        }
-        return (
-            <div>
-                <div className="status">
-                    { msg }
-                </div>
-                <div className="board-row">
-                    { this.renderSquare(0) }
-                    { this.renderSquare(1) }
-                    { this.renderSquare(2) }
-                </div>
-                <div className="board-row">
-                    { this.renderSquare(3) }
-                    { this.renderSquare(4) }
-                    { this.renderSquare(5) }
-                </div>
-                <div className="board-row">
-                    { this.renderSquare(6) }
-                    { this.renderSquare(7) }
-                    { this.renderSquare(8) }
-                </div>
+    return (
+        <div>
+            <div className="status">
+                { msg }
             </div>
-        );
-    }
+            <div className="board-row">
+                { renderSquare(props, 0) }
+                { renderSquare(props, 1) }
+                { renderSquare(props, 2) }
+            </div>
+            <div className="board-row">
+                { renderSquare(props, 3) }
+                { renderSquare(props, 4) }
+                { renderSquare(props, 5) }
+            </div>
+            <div className="board-row">
+                { renderSquare(props, 6) }
+                { renderSquare(props, 7) }
+                { renderSquare(props, 8) }
+            </div>
+        </div>
+    );
 }
+
