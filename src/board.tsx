@@ -1,6 +1,6 @@
 import React from 'react';
 import { Square } from 'square'
-import { SquaresType, NextPlayerType } from 'types'
+import { SquaresType, PlayerType } from 'types'
 import { calculateWinner } from 'calculate-winner'
 
 const renderSquare = (props: PropsType, i: number) => {
@@ -12,7 +12,7 @@ const renderSquare = (props: PropsType, i: number) => {
 
 type PropsType = {
     squares: SquaresType
-    nextPlayer: NextPlayerType
+    player: PlayerType
     clickHandler: (i: number) => void
 }
 type StateType = {}
@@ -26,7 +26,7 @@ export const Board = (props: PropsType) => {
     } else if (boardIsFull) {
         msg = 'No more moves';
     } else {
-        msg = `Next player: ${ props.nextPlayer }`
+        msg = `Next player: ${ props.player }`
     }
     return (
         <div>

@@ -1,2 +1,2 @@
 export type SquaresType = Array<null|string>
-export type NextPlayerType = null|string
+export type PlayerType = null|string
