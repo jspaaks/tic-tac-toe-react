@@ -3,13 +3,6 @@ import { Square } from 'square'
 import { SquaresType, PlayerType } from 'types'
 import { calculateWinner } from 'calculate-winner'
 
-const renderSquare = (props: PropsType, i: number) => {
-    return <Square
-        value={ props.squares[i] }
-        clickHandler={ () => props.clickHandler(i) }
-    />;
-}
-
 type PropsType = {
     squares: SquaresType
     player: PlayerType
@@ -54,4 +47,3 @@ export const Board = (props: PropsType) => {
         </div>
     );
 }
-
