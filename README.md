@@ -1,3 +1,5 @@
-# Tic Tac Toe React tutorial
+# Tic Tac Toe in React
 
-https://reactjs.org/tutorial/tutorial.html
+See the live app on GitHub pages:
+
+https://jspaaks.github.io/tic-tac-toe-react
