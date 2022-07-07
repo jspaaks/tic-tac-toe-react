@@ -3,6 +3,7 @@
         "baseUrl": "./src",
         "esModuleInterop": true,
         "jsx": "react",
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
