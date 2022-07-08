@@ -66,15 +66,25 @@ export class Game extends React.Component<PropsType, StateType> {
                 </li>
             );
         });
+        const winner = calculateWinner(latest.squares);
+        const boardIsFull = latest.squares.every(square => square === 'X' || square === 'O');
+        let msg;
+        if (winner === 'X' || winner === 'O') {
+            msg = `${winner} wins!`;
+        } else if (boardIsFull) {
+            msg = 'No more moves';
+        } else {
+            msg = `Next player: ${latest.player}`;
+        }
         return (
             <div className="game">
                 <div className="game-board">
                     <Board
-                        player={latest.player}
                         squares={latest.squares}
                         clickHandler={(i: number) => this.clickHandler(i)}
                     />
                 </div>
+                <div className="status">{msg}</div>
                 <div className="game-info">
                     <ol style={{ listStyle: 'none' }}>{moves}</ol>
                 </div>
