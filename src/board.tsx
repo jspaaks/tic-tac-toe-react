@@ -8,6 +8,17 @@ type PropsType = {
 };
 
 export const Board = (props: PropsType) => {
+    const names = [
+        'top-left square',
+        'top-center square',
+        'top-right square',
+        'middle-left square',
+        'middle-center square',
+        'middle-right square',
+        'bottom-left square',
+        'bottom-center square',
+        'bottom-right square'
+    ];
     const nCols = 3;
     const rows = [0, 1, 2].map(iRow => {
         const cols = [0, 1, 2].map(iCol => {
@@ -15,6 +26,7 @@ export const Board = (props: PropsType) => {
             return (
                 <Square
                     key={iCol}
+                    ariaLabel={names[iSquare]}
                     value={props.squares[iSquare]}
                     clickHandler={() => props.clickHandler(iSquare)}
                 />

@@ -77,18 +77,20 @@ export class Game extends React.Component<PropsType, StateType> {
             msg = `Next player: ${latest.player}`;
         }
         return (
-            <div className="game">
-                <div className="game-board">
+            <main className="game">
+                <section className="board" aria-label="board">
                     <Board
                         squares={latest.squares}
                         clickHandler={(i: number) => this.clickHandler(i)}
                     />
-                </div>
-                <div className="status">{msg}</div>
-                <div className="game-info">
-                    <ol style={{ listStyle: 'none' }}>{moves}</ol>
-                </div>
-            </div>
+                </section>
+                <section className="message" aria-label="message">
+                    {msg}
+                </section>
+                <section className="previous-states" aria-label="previous states">
+                    <ol>{moves}</ol>
+                </section>
+            </main>
         );
     }
 }

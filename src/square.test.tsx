@@ -7,7 +7,8 @@ describe('Square', () => {
         const clickHandler = () => {
             console.log('dummy click handler');
         };
+        const ariaLabel = 'top-left square';
         const value = 'X';
-        render(<Square clickHandler={clickHandler} value={value} />);
+        render(<Square clickHandler={clickHandler} ariaLabel={ariaLabel} value={value} />);
     });
 });

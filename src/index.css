@@ -4,6 +4,7 @@ body {
 
 ol, ul {
   padding-left: 0px;
+  list-style: none;
 }
 
 .board-row:after {
@@ -40,7 +41,7 @@ ol, ul {
   flex-direction: column;
 }
 
-.game-board {
+.board {
   display: flex;
   flex-direction: row;
   align-self: center;
@@ -48,20 +49,20 @@ ol, ul {
   margin-bottom: 20px;
 }
 
-.game-info {
+.previous-states {
   display: flex;
   flex-direction: row;
   align-self: center;
   min-width: 300px;
 }
 
-.game-info button {
+.previous-states button {
   width: 300px;
   height: 2.5em;
   margin: 4px;
 }
 
-.status {
+.message {
   display: flex;
   flex-direction: row;
   align-self: center;
